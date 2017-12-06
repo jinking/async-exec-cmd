@@ -129,6 +129,10 @@ function buildSpawn (cmd, args, opts, callback) {
       buffer = Buffer.concat([buffer, data])
     })
   }
+  
+  proc.stderr.on('data', function(data) {
+    cmdError.message = data.toString()
+  })
 
   proc
     .on('error', function spawnOnError (err) {
